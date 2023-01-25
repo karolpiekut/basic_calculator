@@ -1,8 +1,6 @@
 :root {
     font-family: monospace, Arial, Helvetica, sans-serif;
-
 }
-
 
 #calc {
     box-sizing: border-box;
@@ -18,15 +16,45 @@
 }
 
 #screenBorder {
-    background:blue;
+    background: darkgray;
     height: 250px;
     width: 375px;
     padding: 0;
 }
 
+#screen {
+    font-size: 3rem;
+	 display: flex;
+	 flex-direction: column;
+	 text-align: right;
+ }
+ 
+.runningTotal {
+	color: gray;
+	font-size: 2rem;
+	padding-right: 7px;
+	height: 80px;
+	line-height: 80px;
+}
+ 
+
+.currentOperation {
+	font-size: 2.5rem;
+	color: gray;
+	padding-right: 7px;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+ 
+.currentValue {
+	padding: 60px 7px 0 0;
+	height: 120px;
+}
+ 
 #calcButtons {
-    background: darkgray;
-    height: 400px;
+    background: lightgray;
+    height: 395px;
     width: 375px;
     display: grid;
     grid-template-columns: repeat(4, 90px);
@@ -34,26 +62,16 @@
     padding:0;
     gap:5px;
     margin-top: 5px;
+	
 }
 
 button {
     font-size: 1.2rem;
     border-width: 0;
-}
-
-#screen {
-    font-size: 2.5rem;
-}
-
-button {
-    height: 75px;
+	 color: black;
+	 height: 75px;
     width: 90px;
     padding: 0;
-}
-
-#plus {
-    height: 155px;
-
 }
 
 .red {

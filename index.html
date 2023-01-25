@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Basic Calculator</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css" type="text/css">
     <script src="./scripts.js" defer></script>
 </head>
 <body>
@@ -15,29 +15,30 @@
         <div id="screen">
             <div class="runningTotal">12233</div>
             <div class="currentOperation">+</div>
-            <div class="currentValue"><p>123456789.1</p></div>
+            <div class="currentValue">123456789.1</div>
         </div>
     </div>
     <div id="calcButtons">
-        <button class="func red" value="CE/C">CE/C</button>
+        <button class="func red" value="C">c</button>
+		  <button class="func" value="del">del</button>
         <button class="func" value="%">%</button>
-        <button class="memory" value="+/-">+/-</button>
-        <button class="func" value="÷">÷</button>
-        <button class="number" value="7">7</button>
+        <button class="func" value="+/-">+/-</button>
+		  <button class="number" value="7">7</button>
         <button class="number" value="8">8</button>
         <button class="number" value="9">9</button>
-        <button class="func" value="×">×</button>
+        <button class="func" value="÷">÷</button>
         <button class="number" value="4">4</button>
         <button class="number" value="5">5</button>
         <button class="number" value="6">6</button>
-        <button class="func" value="-">-</button>
+		  <button class="func" value="×">×</button>
         <button class="number" value="1">1</button>
         <button class="number" value="2">2</button>
         <button class="number" value="3">3</button>
-        <button id="plus" class="func" value="+">+</button>
+		  <button class="func" value="-">-</button>
         <button class="number" value="0">0</button>
         <button class="func" value=".">.</button>
         <button class="equals" value="=">=</button>
+		  <button class="func" value="+">+</button>
     </div>
 </div>
 </body>
