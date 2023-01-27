@@ -45,53 +45,51 @@ Array.from(buttons).forEach(button =>
 
 //global variables
 
-let input = "0";
+let value = "0";
 let valuesArr = [];
 currentValue.innerText = 0;
 
 
 function calculator(selectedButton) {
     let selected = selectedButton.target.value;
-    //if number or dot button selected, will concatenate selection (type string) with a global variable input (will start with 0)
-    if (selected === "." && input.includes(".") === true) {
+    //if number or dot pressed, will concatenate selection with a global variable value
+    if (selected === "." && value.includes(".") === true) {
         document.querySelector("#dot").disabled = true;
+    } //won't remove 0 from the value
+    else if (selected === "del" && value === "0") {
+        value = "0";
+    } //delete button will work
+    else if (selected === "del" && value !== "0") {
+        value = value.substring(0, value.length - 1);
     } else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
-        input += selected;
-    } else if (selected !== "=") { //if function button selected, push first value into array
-        valuesArr.push(parseFloat(input)); //push first value into array
-        input = 0; //sets input back to 0
+        value += selected;
+        console.log(value);
+    } else if (selected !== "=" || selected !== "del") { //if function button selected, push first value into array
+        valuesArr.push(parseFloat(value)); //push first value into array
+        value = 0; //sets value back to 0
         console.log(`valuesArr: ${valuesArr}`);
-
-
-
-
-        //push function button into valuesArr
-
-
-
-
-
-        if (selected === "+") {
-            valuesArr.push(add);
-        } else if (selected === "-") {
-            valuesArr.push(deduct);
-        } else if (selected === "×") {
-            valuesArr.push(multiply);
-        } else if (selected === "÷") {
-            valuesArr.push(divide);
-        } else if (selected === "%") {
-            valuesArr.push(percentage);
-        }
-        console.log(`valuesArr: ${valuesArr}`);
-    } else if (selected === "CE/C") { //reset calculator
-        input = 0;
-        valuesArr = [];
     }
 
 
+    //push function button into valuesArr
 
 
+    if (selected === "+") {
+        valuesArr.push(add);
+    } else if (selected === "-") {
+        valuesArr.push(deduct);
+    } else if (selected === "×") {
+        valuesArr.push(multiply);
+    } else if (selected === "÷") {
+        valuesArr.push(divide);
+    } else if (selected === "%") {
+        valuesArr.push(percentage);
 
+        console.log(`valuesArr: ${valuesArr}`);
+    } else if (selected === "CE/C") { //reset calculator
+        value = 0;
+        valuesArr = [];
+    }
 
 
 }
@@ -104,24 +102,24 @@ function calculator(selectedButton) {
     //need logic when equals will only execute if valuesArr.length === 2;
 
     if (select === "=") {
-        valuesArr.push(parseFloat(input));
+        valuesArr.push(parseFloat(value));
         evaluation = operate(valuesArr[0], valuesArr[1], valuesArr[2]);
         valuesArr = [];
         valuesArr.push(evaluation);
-        input = 0;
+        value = 0;
     }
 
 
 
     //display logic
-    if (input === 0) {
-        screen.innerText = input; //display value when 0
-    } else if (input.length > 9) {
-        let displayNumberLong = parseFloat(input).toExponential();
+    if (value === 0) {
+        screen.innerText = value; //display value when 0
+    } else if (value.length > 9) {
+        let displayNumberLong = parseFloat(value).toExponential();
 
-        screen.innerText = parseFloat(input).toExponential(6);
+        screen.innerText = parseFloat(value).toExponential(6);
     } else {
-        screen.innerText = parseFloat(input); //display value without a leading 0
+        screen.innerText = parseFloat(value); //display value without a leading 0
     }
 }
 
