@@ -36,9 +36,9 @@ function operate(par1, fun, par2) {
 // event listeners and query selectors
 
 let buttons = document.querySelectorAll("button");
-let runningTotal = document.querySelector(".runningTotal");
-let currentOperation = document.querySelector(".currentOperation");
-let currentValue = document.querySelector(".currentValue");
+let runningTotalDisplay = document.querySelector(".runningTotal");
+let currentOperationDisplay = document.querySelector(".currentOperation");
+let currentValueDisplay = document.querySelector(".currentValue");
 
 Array.from(buttons).forEach(button =>
     button.addEventListener("click", calculator));
@@ -47,12 +47,12 @@ Array.from(buttons).forEach(button =>
 
 let value = "0";
 let valuesArr = [];
-currentValue.innerText = 0;
+currentValueDisplay.innerText = 0;
 
 
 function calculator(selectedButton) {
     let selected = selectedButton.target.value;
-    //if number or dot pressed, will concatenate selection with a global variable value
+    // won't allow to add second comma in decimals
     if (selected === "." && value.includes(".") === true) {
         document.querySelector("#dot").disabled = true;
     } //won't remove 0 from the value
@@ -61,7 +61,8 @@ function calculator(selectedButton) {
     } //delete button will work
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
-    } else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
+    } //if number or dot pressed, will concatenate selection with a global variable value
+    else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
         console.log(value);
     } else if (selected !== "=" || selected !== "del") { //if function button selected, push first value into array
@@ -69,10 +70,12 @@ function calculator(selectedButton) {
         value = 0; //sets value back to 0
         console.log(`valuesArr: ${valuesArr}`);
     }
+}
 
+//HOW TO MAKE SURE THAT THE ARRAY IS GOING TO BE POPULATED IN THE RIGHT ORDER
 
     //push function button into valuesArr
-
+/*
 
     if (selected === "+") {
         valuesArr.push(add);
@@ -84,9 +87,7 @@ function calculator(selectedButton) {
         valuesArr.push(divide);
     } else if (selected === "%") {
         valuesArr.push(percentage);
-
-        console.log(`valuesArr: ${valuesArr}`);
-    } else if (selected === "CE/C") { //reset calculator
+    } else if (selected === "c") { //reset calculator
         value = 0;
         valuesArr = [];
     }
@@ -94,10 +95,21 @@ function calculator(selectedButton) {
 
 }
 
+
+if (value === 0) {
+    currentValueDisplay.innerText = value; //display value when 0
+} else if (value.length > 9) {
+    let displayNumberLong = parseFloat(value).toExponential();
+
+    currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+} else {
+    currentValueDisplay.innerText = parseFloat(value); //display value without a leading 0
+}
+
 /*
 
 
-
+    
 
     //need logic when equals will only execute if valuesArr.length === 2;
 
@@ -112,15 +124,7 @@ function calculator(selectedButton) {
 
 
     //display logic
-    if (value === 0) {
-        screen.innerText = value; //display value when 0
-    } else if (value.length > 9) {
-        let displayNumberLong = parseFloat(value).toExponential();
 
-        screen.innerText = parseFloat(value).toExponential(6);
-    } else {
-        screen.innerText = parseFloat(value); //display value without a leading 0
-    }
 }
 
 
