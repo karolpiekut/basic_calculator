@@ -49,19 +49,26 @@ Array.from(buttons).forEach(button =>
 let value = "0";
 let value2 = "0";
 let operator;
-let valuesArr = [];
+let grandTotal = "0"
 currentValueDisplay.innerText = 0;
 
 
 function calculator(selectedButton) {
     let selected = selectedButton.target.value;
-    // won't allow to add second comma in decimals
-    if (selected === "." && value.includes(".") === true) {
+    // clear button functionality
+    if (selected === "C") {
+        value = "0";
+        value2 = "0";
+        operator = undefined;
+        grandTotal = "0";
+        console.log(value, value2, operator, grandTotal);
+    } // won't allow to add second comma in decimals
+    else if (selected === "." && value.includes(".") === true) {
         dot.disabled = true;
-    } //won't remove initial 0 from the value
+    } //if delete pressed, won't delete initial 0
     else if (selected === "del" && value === "0") {
         value = "0";
-    } //delete button will work
+    } //delete button login
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
         console.log(value);
@@ -69,18 +76,16 @@ function calculator(selectedButton) {
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
         console.log(value);
-    } else if (selected !== "=" || selected !== "del") { //if operation button selected, push first value into array
-        valuesArr.push(parseFloat(value)); //push first value into array
+    } else if (selected !== "=" || selected !== "del") {
         value = 0; //sets value back to 0
-        console.log(`valuesArr: ${valuesArr}`);
     }
 
 
 
     if (selected === "+") {
-        valuesArr.push(add);
+        operator = add;
         console.log(value);
-        console.log(`with plus: ${valuesArr}`)
+        console.log(`with plus: ${operator}`)
     }
 
 

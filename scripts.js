@@ -36,6 +36,7 @@ function operate(par1, fun, par2) {
 // event listeners and query selectors
 
 let buttons = document.querySelectorAll("button");
+let dot = document.querySelector("#dot");
 let runningTotalDisplay = document.querySelector(".runningTotal");
 let currentOperationDisplay = document.querySelector(".currentOperation");
 let currentValueDisplay = document.querySelector(".currentValue");
@@ -54,27 +55,42 @@ function calculator(selectedButton) {
     let selected = selectedButton.target.value;
     // won't allow to add second comma in decimals
     if (selected === "." && value.includes(".") === true) {
-        document.querySelector("#dot").disabled = true;
-    } //won't remove 0 from the value
+        dot.disabled = true;
+    } //won't remove initial 0 from the value
     else if (selected === "del" && value === "0") {
         value = "0";
     } //delete button will work
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
+        console.log(value);
     } //if number or dot pressed, will concatenate selection with a global variable value
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
         console.log(value);
-    } else if (selected !== "=" || selected !== "del") { //if function button selected, push first value into array
+    } else if (selected !== "=" || selected !== "del") { //if operation button selected, push first value into array
         valuesArr.push(parseFloat(value)); //push first value into array
         value = 0; //sets value back to 0
         console.log(`valuesArr: ${valuesArr}`);
     }
+
+
+
+    if (selected === "+") {
+        valuesArr.push(add);
+        console.log(value);
+        console.log(`with plus: ${valuesArr}`)
+    }
+
+
+//
+
 }
+
+
 
 //HOW TO MAKE SURE THAT THE ARRAY IS GOING TO BE POPULATED IN THE RIGHT ORDER
 
-    //push function button into valuesArr
+//push function button into valuesArr
 /*
 
     if (selected === "+") {
