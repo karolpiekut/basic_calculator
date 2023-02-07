@@ -47,7 +47,8 @@ Array.from(buttons).forEach(button =>
 //global variables
 
 let value = "0";
-let value2 = "0";
+let calcValue1 = "0";
+let calcValue2 = "0";
 let operator;
 let grandTotal = "0"
 currentValueDisplay.innerText = 0;
@@ -58,28 +59,48 @@ function calculator(selectedButton) {
     // clear button functionality
     if (selected === "C") {
         value = "0";
-        value2 = "0";
+        calcValue1 = "0";
+        calcValue2 = "0";
         operator = undefined;
         grandTotal = "0";
-        console.log(value, value2, operator, grandTotal);
+        console.log(value, calcValue1, calcValue2, operator, grandTotal);
     } // won't allow to add second comma in decimals
     else if (selected === "." && value.includes(".") === true) {
         dot.disabled = true;
     } //if delete pressed, won't delete initial 0
     else if (selected === "del" && value === "0") {
         value = "0";
-    } //delete button login
+    } //delete button functionality
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
         console.log(value);
-    } //if number or dot pressed, will concatenate selection with a global variable value
+    } //percentage button functionality
+    else if (selected === "%") {
+        value = parseFloat(value) / 100;
+        console.log(value);
+        console.log(`percentageValue: ${value}`);
+    } //plus/minus button functionality
+        else if (selected === "+/-") {
+            if (Math.sign(parseFloat(value)) === 1){
+                value = (-Math.abs(value)).toString()
+                console.log(value);
+                console.log(typeof value);
+            } else if (Math.sign(parseFloat(value)) === -1){
+                value = Math.abs(value).toString();
+                console.log(value);
+                console.log(typeof value);
+            }
+    }
+
+
+
+    //if number or dot pressed, will concatenate selection with a global variable value
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
         console.log(value);
     } else if (selected !== "=" || selected !== "del") {
         value = 0; //sets value back to 0
     }
-
 
 
     if (selected === "+") {
@@ -92,7 +113,6 @@ function calculator(selectedButton) {
 //
 
 }
-
 
 
 //HOW TO MAKE SURE THAT THE ARRAY IS GOING TO BE POPULATED IN THE RIGHT ORDER
