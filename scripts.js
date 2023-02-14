@@ -58,7 +58,6 @@ function calculator(selectedButton) {
         firstValue = "0";
         operator = undefined;
         grandTotal = undefined;
-        console.log(value, firstValue, operator, grandTotal);
         currentValueDisplay.innerText = parseFloat(value);
         currentOperationDisplay.innerText = "";
         runningTotalDisplay.innerText = "";
@@ -68,11 +67,9 @@ function calculator(selectedButton) {
     } //if delete pressed, won't delete initial 0
     else if (selected === "del" && value === "0") {
         value = "0";
-        console.log(value);
     } //delete button functionality
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
-        console.log(value);
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
@@ -81,8 +78,6 @@ function calculator(selectedButton) {
     } //percentage button functionality
     else if (selected === "%") {
         value = (value / 100).toString();
-        console.log(value);
-        console.log(`percentageValue: ${value}`);
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
@@ -92,10 +87,8 @@ function calculator(selectedButton) {
     else if (selected === "+/-") {
         if (Math.sign(parseFloat(value)) === 1) {
             value = (-Math.abs(value)).toString()
-            console.log(value);
         } else if (Math.sign(parseFloat(value)) === -1) {
             value = Math.abs(value).toString();
-            console.log(value);
         }
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
@@ -105,13 +98,6 @@ function calculator(selectedButton) {
     }//if number or dot pressed, will concatenate selection with a global variable value
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
-        console.log("-------------------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-        console.log(value[0]);
         //display logic
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
@@ -128,12 +114,6 @@ function calculator(selectedButton) {
         operator = add;
         firstValue = parseFloat(value);
         value = "0";
-        console.log("---------PLUS1----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "+";
         currentValueDisplay.innerText = 0;
@@ -148,12 +128,6 @@ function calculator(selectedButton) {
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = add;
-        console.log("---------PLUS2----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "+";
         currentValueDisplay.innerText = 0;
@@ -171,12 +145,6 @@ function calculator(selectedButton) {
         operator = deduct;
         firstValue = parseFloat(value);
         value = "0";
-        console.log("---------DEDUCT1----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "-";
         currentValueDisplay.innerText = 0;
@@ -191,12 +159,6 @@ function calculator(selectedButton) {
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = deduct;
-        console.log("---------DEDUCT2----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "-";
         currentValueDisplay.innerText = 0;
@@ -215,12 +177,6 @@ function calculator(selectedButton) {
         operator = divide;
         firstValue = parseFloat(value);
         value = "0";
-        console.log("---------DIVIDE1----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "÷";
         currentValueDisplay.innerText = 0;
@@ -235,12 +191,6 @@ function calculator(selectedButton) {
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = divide;
-        console.log("---------DIVIDE2----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "÷";
         currentValueDisplay.innerText = 0;
@@ -257,12 +207,6 @@ function calculator(selectedButton) {
         operator = multiply;
         firstValue = parseFloat(value);
         value = "0";
-        console.log("---------MULTIPLY1----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "×";
         currentValueDisplay.innerText = 0;
@@ -277,12 +221,6 @@ function calculator(selectedButton) {
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = multiply;
-        console.log("---------MULTIPLY2----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "×";
         currentValueDisplay.innerText = 0;
@@ -297,16 +235,9 @@ function calculator(selectedButton) {
         }
     } else if (selected === "=" && operator === undefined) {
         grandTotal = value;
-        console.log(grandTotal);
     } else if (selected === "=" && grandTotal === undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(firstValue, lastValue, operator);
-        console.log("---------EQUALS1----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentValueDisplay.innerText = 0;
         if (grandTotal.toString().length > 11) {
@@ -321,14 +252,9 @@ function calculator(selectedButton) {
     } else if (selected === "=" && grandTotal !== undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(grandTotal, lastValue, operator);
-        console.log("---------EQUALS2----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
         //display logic
         currentValueDisplay.innerText = lastValue;
+
         if (lastValue.toString().length > 11) {
             currentValueDisplay.innerText = lastValue.toExponential(6);
         } else {
