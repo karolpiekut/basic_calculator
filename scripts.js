@@ -58,6 +58,9 @@ function calculator(selectedButton) {
         operator = undefined;
         grandTotal = undefined;
         console.log(value, firstValue, operator, grandTotal);
+        currentValueDisplay.innerText = parseFloat(value);
+        currentOperationDisplay.innerText = "";
+        runningTotalDisplay.innerText = "";
     } // won't allow to add second comma in decimals
     else if (selected === "." && value.includes(".") === true) {
         dot.disabled = true;
@@ -69,11 +72,21 @@ function calculator(selectedButton) {
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
         console.log(value);
+        if (value.length > 12) {
+            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+        } else {
+            currentValueDisplay.innerText = parseFloat(value);
+        }
     } //percentage button functionality
     else if (selected === "%") {
         value = (value / 100).toString();
         console.log(value);
         console.log(`percentageValue: ${value}`);
+        if (value.length > 12) {
+            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+        } else {
+            currentValueDisplay.innerText = parseFloat(value);
+        }
     } //plus/minus button functionality
     else if (selected === "+/-") {
         if (Math.sign(parseFloat(value)) === 1) {
@@ -82,6 +95,11 @@ function calculator(selectedButton) {
         } else if (Math.sign(parseFloat(value)) === -1) {
             value = Math.abs(value).toString();
             console.log(value);
+        }
+        if (value.length > 12) {
+            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+        } else {
+            currentValueDisplay.innerText = parseFloat(value);
         }
     }//if number or dot pressed, will concatenate selection with a global variable value
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
@@ -92,11 +110,14 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        console.log(value[0]);
         //display logic
         if (value.length > 12) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+        } else if (value[0] === "0" && value.length > 0) {
+            currentValueDisplay.innerText = value.substring(1);
         } else {
-            currentValueDisplay.innerText = parseFloat(value);
+            currentValueDisplay.innerText = value;
         }
     }
     //CALCULATOR FUNCTIONS BELOW
@@ -113,6 +134,7 @@ function calculator(selectedButton) {
         //display logic
         currentOperationDisplay.innerText = "+";
         currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = parseFloat(firstValue);
     } else if (selected === "+" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -126,6 +148,7 @@ function calculator(selectedButton) {
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
         //display logic
+        currentOperationDisplay.innerText = "+";
         currentValueDisplay.innerText = parseFloat(value);
         runningTotalDisplay.innerText = grandTotal;
     } else if (selected === "-" && operator === undefined) {
@@ -138,6 +161,10 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        //display logic
+        currentOperationDisplay.innerText = "-";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = parseFloat(firstValue);
     } else if (selected === "-" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -150,6 +177,10 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        //display logic
+        currentOperationDisplay.innerText = "-";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = grandTotal;
     } else if (selected === "÷" && operator === undefined) {
         operator = divide;
         firstValue = parseFloat(value);
@@ -160,6 +191,10 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        //display logic
+        currentOperationDisplay.innerText = "÷";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = parseFloat(firstValue);
     } else if (selected === "÷" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -172,6 +207,10 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        //display logic
+        currentOperationDisplay.innerText = "÷";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = grandTotal;
     } else if (selected === "×" && operator === undefined) {
         operator = multiply;
         firstValue = parseFloat(value);
@@ -182,6 +221,10 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
+        //display logic
+        currentOperationDisplay.innerText = "×";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = parseFloat(firstValue);
     } else if (selected === "×" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -194,26 +237,36 @@ function calculator(selectedButton) {
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
-    } else if (selected === "=" && operator === undefined) {
+        //display logic
+        currentOperationDisplay.innerText = "×";
+        currentValueDisplay.innerText = parseFloat(value);
+        runningTotalDisplay.innerText = grandTotal;
+    }  else if (selected === "=" && operator === undefined) {
         grandTotal = value;
         console.log(grandTotal);
     } else if (selected === "=" && grandTotal === undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(firstValue, lastValue, operator);
+        console.log("---------EQUALS1----------");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+        //display logic
+        currentValueDisplay.innerText = 0;
+        runningTotalDisplay.innerText = grandTotal;
+    } else if (selected === "=" && grandTotal !== undefined) {
+        lastValue = parseFloat(value);
+        grandTotal = operate(grandTotal, lastValue, operator);
         console.log("---------EQUALS2----------");
         console.log(`GRAND TOTAL: ${grandTotal}`);
         console.log(`value: ${value}`);
         console.log(`firstValue: ${firstValue}`);
         console.log(`lastValue ${lastValue}`);
         console.log(`operator: ${operator}`);
-    } else if (selected === "=" && grandTotal !== undefined) {
-        lastValue = parseFloat(value);
-        grandTotal = operate(grandTotal, lastValue, operator);
-        console.log("---------EQUALS3----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
+        //display logic
+        currentValueDisplay.innerText = lastValue;
+        runningTotalDisplay.innerText = grandTotal;
     }
 }
