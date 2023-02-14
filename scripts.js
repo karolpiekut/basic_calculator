@@ -49,6 +49,7 @@ let operator;
 let grandTotal;
 currentValueDisplay.innerText = 0;
 
+
 function calculator(selectedButton) {
     let selected = selectedButton.target.value;
     // clear button functionality
@@ -72,7 +73,7 @@ function calculator(selectedButton) {
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
         console.log(value);
-        if (value.length > 12) {
+        if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
             currentValueDisplay.innerText = parseFloat(value);
@@ -82,7 +83,7 @@ function calculator(selectedButton) {
         value = (value / 100).toString();
         console.log(value);
         console.log(`percentageValue: ${value}`);
-        if (value.length > 12) {
+        if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
             currentValueDisplay.innerText = parseFloat(value);
@@ -96,7 +97,7 @@ function calculator(selectedButton) {
             value = Math.abs(value).toString();
             console.log(value);
         }
-        if (value.length > 12) {
+        if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
             currentValueDisplay.innerText = parseFloat(value);
@@ -112,12 +113,14 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         console.log(value[0]);
         //display logic
-        if (value.length > 12) {
+        if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-        } else if (value[0] === "0" && value.length > 0) {
-            currentValueDisplay.innerText = value.substring(1);
-        } else {
+        } else if (value[1] === ".") {
             currentValueDisplay.innerText = value;
+        } else if (parseFloat(value) === 0) {
+            currentValueDisplay.innerText = 0;
+        } else {
+            currentValueDisplay.innerText = parseFloat(value);
         }
     }
     //CALCULATOR FUNCTIONS BELOW
@@ -133,8 +136,12 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "+";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = parseFloat(firstValue);
+        currentValueDisplay.innerText = 0;
+        if (firstValue.toString().length > 11) {
+            runningTotalDisplay.innerText = firstValue.toExponential(11);
+        } else {
+            runningTotalDisplay.innerText = firstValue;
+        }
     } else if (selected === "+" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -149,8 +156,17 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "+";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = grandTotal;
+        currentValueDisplay.innerText = 0;
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }
+        else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
     } else if (selected === "-" && operator === undefined) {
         operator = deduct;
         firstValue = parseFloat(value);
@@ -163,8 +179,12 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "-";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = parseFloat(firstValue);
+        currentValueDisplay.innerText = 0;
+        if (firstValue.toString().length > 11) {
+            runningTotalDisplay.innerText = firstValue.toExponential(11);
+        } else {
+            runningTotalDisplay.innerText = firstValue;
+        }
     } else if (selected === "-" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -179,9 +199,19 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "-";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = grandTotal;
-    } else if (selected === "÷" && operator === undefined) {
+        currentValueDisplay.innerText = 0;
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
+    }
+
+    else if (selected === "÷" && operator === undefined) {
         operator = divide;
         firstValue = parseFloat(value);
         value = "0";
@@ -193,8 +223,12 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "÷";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = parseFloat(firstValue);
+        currentValueDisplay.innerText = 0;
+        if (firstValue.toString().length > 11) {
+            runningTotalDisplay.innerText = firstValue.toExponential(11);
+        } else {
+            runningTotalDisplay.innerText = firstValue;
+        }
     } else if (selected === "÷" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -209,8 +243,16 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "÷";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = grandTotal;
+        currentValueDisplay.innerText = 0;
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
     } else if (selected === "×" && operator === undefined) {
         operator = multiply;
         firstValue = parseFloat(value);
@@ -223,8 +265,12 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "×";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = parseFloat(firstValue);
+        currentValueDisplay.innerText = 0;
+        if (firstValue.toString().length > 11) {
+            runningTotalDisplay.innerText = firstValue.toExponential(11);
+        } else {
+            runningTotalDisplay.innerText = firstValue;
+        }
     } else if (selected === "×" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
@@ -239,9 +285,17 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentOperationDisplay.innerText = "×";
-        currentValueDisplay.innerText = parseFloat(value);
-        runningTotalDisplay.innerText = grandTotal;
-    }  else if (selected === "=" && operator === undefined) {
+        currentValueDisplay.innerText = 0;
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
+    } else if (selected === "=" && operator === undefined) {
         grandTotal = value;
         console.log(grandTotal);
     } else if (selected === "=" && grandTotal === undefined) {
@@ -255,7 +309,15 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentValueDisplay.innerText = 0;
-        runningTotalDisplay.innerText = grandTotal;
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
     } else if (selected === "=" && grandTotal !== undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(grandTotal, lastValue, operator);
@@ -267,6 +329,20 @@ function calculator(selectedButton) {
         console.log(`operator: ${operator}`);
         //display logic
         currentValueDisplay.innerText = lastValue;
-        runningTotalDisplay.innerText = grandTotal;
+        if (lastValue.toString().length > 11) {
+            currentValueDisplay.innerText = lastValue.toExponential(6);
+        } else {
+            currentValueDisplay.innerText = lastValue;
+        }
+
+        if (grandTotal.toString().length > 11) {
+            runningTotalDisplay.innerText = grandTotal.toExponential(11);
+        } else if (grandTotal === Infinity) {
+            runningTotalDisplay.innerText = grandTotal;
+            currentOperationDisplay.innerText = "and Beyond!";
+            currentValueDisplay.innerText = "c to reset";
+        }else {
+            runningTotalDisplay.innerText = grandTotal;
+        }
     }
 }
