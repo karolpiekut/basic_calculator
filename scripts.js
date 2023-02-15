@@ -70,6 +70,7 @@ function calculator(selectedButton) {
     } //delete button functionality
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
+        //display logic
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
@@ -78,6 +79,7 @@ function calculator(selectedButton) {
     } //percentage button functionality
     else if (selected === "%") {
         value = (value / 100).toString();
+        //display logic
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
@@ -85,11 +87,14 @@ function calculator(selectedButton) {
         }
     } //plus/minus button functionality
     else if (selected === "+/-") {
-        if (Math.sign(parseFloat(value)) === 1) {
+        if (currentValueDisplay.innerText === "0") {
+            value = "0";
+        } else if (Math.sign(parseFloat(value)) === 1) {
             value = (-Math.abs(value)).toString()
         } else if (Math.sign(parseFloat(value)) === -1) {
             value = Math.abs(value).toString();
         }
+        //display logic
         if (value.length > 11) {
             currentValueDisplay.innerText = parseFloat(value).toExponential(6);
         } else {
@@ -137,8 +142,7 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }
-        else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
     } else if (selected === "-" && operator === undefined) {
@@ -168,12 +172,10 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
-    }
-
-    else if (selected === "÷" && operator === undefined) {
+    } else if (selected === "÷" && operator === undefined) {
         operator = divide;
         firstValue = parseFloat(value);
         value = "0";
@@ -200,7 +202,7 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
     } else if (selected === "×" && operator === undefined) {
@@ -230,7 +232,7 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
     } else if (selected === "=" && operator === undefined) {
@@ -246,7 +248,7 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
     } else if (selected === "=" && grandTotal !== undefined) {
@@ -267,7 +269,7 @@ function calculator(selectedButton) {
             runningTotalDisplay.innerText = grandTotal;
             currentOperationDisplay.innerText = "and Beyond!";
             currentValueDisplay.innerText = "c to reset";
-        }else {
+        } else {
             runningTotalDisplay.innerText = grandTotal;
         }
     }
