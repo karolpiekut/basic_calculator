@@ -113,6 +113,13 @@ function calculator(selectedButton) {
         } else {
             currentValueDisplay.innerText = parseFloat(value);
         }
+
+        console.log("---------VALUE----------");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
     }
     //CALCULATOR FUNCTIONS BELOW
     else if (selected === "+" && operator === undefined) {
@@ -251,18 +258,16 @@ function calculator(selectedButton) {
         } else {
             runningTotalDisplay.innerText = grandTotal;
         }
+        value = "0"
     } else if (selected === "=" && grandTotal !== undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(grandTotal, lastValue, operator);
         //display logic
-        currentValueDisplay.innerText = lastValue;
-
         if (lastValue.toString().length > 11) {
             currentValueDisplay.innerText = lastValue.toExponential(6);
         } else {
             currentValueDisplay.innerText = lastValue;
         }
-
         if (grandTotal.toString().length > 11) {
             runningTotalDisplay.innerText = grandTotal.toExponential(11);
         } else if (grandTotal === Infinity) {
@@ -272,5 +277,6 @@ function calculator(selectedButton) {
         } else {
             runningTotalDisplay.innerText = grandTotal;
         }
+
     }
 }
