@@ -82,13 +82,6 @@ function calculator(selectedButton) {
     }//if number or dot pressed, will concatenate selection with a global variable value
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
-
-        console.log("---------VALUE----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
     }
     //CALCULATOR FUNCTIONS BELOW
     else if (selected === "+" && operator === undefined) {
@@ -146,7 +139,6 @@ function calculator(selectedButton) {
     } else if (grandTotal === undefined) {
         runningTotalDisplay.innerText = "0";
     } else if (grandTotal.toString().length > 11) {
-        //Number(Math.round(grandTotal +'e11')+'e-11');
         runningTotalDisplay.innerText = grandTotal.toExponential(11);
     } else {
         runningTotalDisplay.innerText = grandTotal;
@@ -166,12 +158,9 @@ function calculator(selectedButton) {
     }
     //----------currentValueDisplay----------
 
-    //DOT doesn't work
     if (value.length > 11) {
         currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-    } else if (value.includes(".")) {
-        currentValueDisplay.innerText = value;
-    } else if (parseFloat(value) === 0) {
+    }  else if (parseFloat(value) === 0) {
         currentValueDisplay.innerText = 0;
     } else {
         currentValueDisplay.innerText = parseFloat(value);
