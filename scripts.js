@@ -1,32 +1,32 @@
 /* calculator functions */
 
 function multiply(...par) {
-    return par.reduce(
-        (acc, curr) => acc * curr
-    );
+    return par.reduce((acc, curr) => acc * curr);
 }
 
 function divide(...par) {
-    return par.reduce(
-        (acc, curr) => acc / curr
-    );
+    return par.reduce((acc, curr) => acc / curr);
 }
 
 function add(...par) {
-    return par.reduce(
-        (acc, curr) => acc + curr
-    );
+    return par.reduce((acc, curr) => acc + curr);
 }
 
 function deduct(...par) {
-    return par.reduce(
-        (acc, curr) => acc - curr
-    );
+    return par.reduce((acc, curr) => acc - curr);
 }
 
 //operate will take three arguments, first number, function, second number and limit the result to 9 digits
 function operate(par1, par2, fun) {
-    return fun(parseFloat(par1), parseFloat(par2));
+    if (par2 === 0 && fun === divide) {
+        alert("you can't divide by zero!");
+        value = "0";
+        firstValue = undefined;
+        operator = undefined;
+        grandTotal = undefined;
+    } else {
+        return fun(parseFloat(par1), parseFloat(par2));
+    }
 }
 
 // event listeners and query selectors
@@ -47,20 +47,17 @@ let firstValue;
 let lastValue;
 let operator;
 let grandTotal;
-currentValueDisplay.innerText = 0;
-
+runningTotalDisplay.innerText = "0";
+currentValueDisplay.innerText = "0";
 
 function calculator(selectedButton) {
     let selected = selectedButton.target.value;
     // clear button functionality
     if (selected === "C") {
         value = "0";
-        firstValue = "0";
+        firstValue = undefined;
         operator = undefined;
         grandTotal = undefined;
-        currentValueDisplay.innerText = parseFloat(value);
-        currentOperationDisplay.innerText = "";
-        runningTotalDisplay.innerText = "";
     } // won't allow to add second comma in decimals
     else if (selected === "." && value.includes(".") === true) {
         dot.disabled = true;
@@ -70,49 +67,46 @@ function calculator(selectedButton) {
     } //delete button functionality
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
-        //display logic
-        if (value.length > 11) {
-            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-        } else {
-            currentValueDisplay.innerText = parseFloat(value);
-        }
+
+        console.log("---------delete----------");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } //percentage button functionality
     else if (selected === "%") {
         value = (value / 100).toString();
-        //display logic
-        if (value.length > 11) {
-            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-        } else {
-            currentValueDisplay.innerText = parseFloat(value);
-        }
+
+        console.log("---------percentage----------");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+
     } //plus/minus button functionality
     else if (selected === "+/-") {
-        if (currentValueDisplay.innerText === "0") {
+        if (parseFloat(value) === 0) {
             value = "0";
         } else if (Math.sign(parseFloat(value)) === 1) {
             value = (-Math.abs(value)).toString()
         } else if (Math.sign(parseFloat(value)) === -1) {
             value = Math.abs(value).toString();
         }
-        //display logic
-        if (value.length > 11) {
-            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-        } else {
-            currentValueDisplay.innerText = parseFloat(value);
-        }
+        console.log("-----plus minus-----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
     }//if number or dot pressed, will concatenate selection with a global variable value
+
+
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
-        //display logic
-        if (value.length > 11) {
-            currentValueDisplay.innerText = parseFloat(value).toExponential(6);
-        } else if (value[1] === ".") {
-            currentValueDisplay.innerText = value;
-        } else if (parseFloat(value) === 0) {
-            currentValueDisplay.innerText = 0;
-        } else {
-            currentValueDisplay.innerText = parseFloat(value);
-        }
 
         console.log("---------VALUE----------");
         console.log(`GRAND TOTAL: ${grandTotal}`);
@@ -126,157 +120,186 @@ function calculator(selectedButton) {
         operator = add;
         firstValue = parseFloat(value);
         value = "0";
-        //display logic
-        currentOperationDisplay.innerText = "+";
-        currentValueDisplay.innerText = 0;
-        if (firstValue.toString().length > 11) {
-            runningTotalDisplay.innerText = firstValue.toExponential(11);
-        } else {
-            runningTotalDisplay.innerText = firstValue;
-        }
+
+        console.log("----first plus----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+
     } else if (selected === "+" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = add;
-        //display logic
-        currentOperationDisplay.innerText = "+";
-        currentValueDisplay.innerText = 0;
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
+
+        console.log("----second plus----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+
     } else if (selected === "-" && operator === undefined) {
         operator = deduct;
         firstValue = parseFloat(value);
         value = "0";
-        //display logic
-        currentOperationDisplay.innerText = "-";
-        currentValueDisplay.innerText = 0;
-        if (firstValue.toString().length > 11) {
-            runningTotalDisplay.innerText = firstValue.toExponential(11);
-        } else {
-            runningTotalDisplay.innerText = firstValue;
-        }
+
+        console.log("----first minus-----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "-" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = deduct;
-        //display logic
-        currentOperationDisplay.innerText = "-";
-        currentValueDisplay.innerText = 0;
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
+
+
+        console.log("----second minus----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "÷" && operator === undefined) {
         operator = divide;
         firstValue = parseFloat(value);
         value = "0";
-        //display logic
-        currentOperationDisplay.innerText = "÷";
-        currentValueDisplay.innerText = 0;
-        if (firstValue.toString().length > 11) {
-            runningTotalDisplay.innerText = firstValue.toExponential(11);
-        } else {
-            runningTotalDisplay.innerText = firstValue;
-        }
+
+        console.log("-----first divide----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "÷" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = divide;
-        //display logic
-        currentOperationDisplay.innerText = "÷";
-        currentValueDisplay.innerText = 0;
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
+
+        console.log("----second divide----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "×" && operator === undefined) {
         operator = multiply;
         firstValue = parseFloat(value);
         value = "0";
-        //display logic
-        currentOperationDisplay.innerText = "×";
-        currentValueDisplay.innerText = 0;
-        if (firstValue.toString().length > 11) {
-            runningTotalDisplay.innerText = firstValue.toExponential(11);
-        } else {
-            runningTotalDisplay.innerText = firstValue;
-        }
+
+
+        console.log("----first multiply----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "×" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = multiply;
-        //display logic
-        currentOperationDisplay.innerText = "×";
-        currentValueDisplay.innerText = 0;
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
+
+        console.log("----second multiply----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
     } else if (selected === "=" && operator === undefined) {
         grandTotal = value;
-    } else if (selected === "=" && grandTotal === undefined) {
+
+        console.log("----equals no operator----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+
+    } else if (selected === "=") {
         lastValue = parseFloat(value);
         grandTotal = operate(firstValue, lastValue, operator);
-        //display logic
-        currentValueDisplay.innerText = 0;
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
-        value = "0"
-    } else if (selected === "=" && grandTotal !== undefined) {
+        console.log("----first equals----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+
+    } /*else if (selected === "=" && grandTotal !== undefined) {
         lastValue = parseFloat(value);
         grandTotal = operate(grandTotal, lastValue, operator);
-        //display logic
-        if (lastValue.toString().length > 11) {
-            currentValueDisplay.innerText = lastValue.toExponential(6);
-        } else {
-            currentValueDisplay.innerText = lastValue;
-        }
-        if (grandTotal.toString().length > 11) {
-            runningTotalDisplay.innerText = grandTotal.toExponential(11);
-        } else if (grandTotal === Infinity) {
-            runningTotalDisplay.innerText = grandTotal;
-            currentOperationDisplay.innerText = "and Beyond!";
-            currentValueDisplay.innerText = "c to reset";
-        } else {
-            runningTotalDisplay.innerText = grandTotal;
-        }
 
+        console.log("----second equals----");
+        console.log(`GRAND TOTAL: ${grandTotal}`);
+        console.log(`value: ${value}`);
+        console.log(`firstValue: ${firstValue}`);
+        console.log(`lastValue ${lastValue}`);
+        console.log(`operator: ${operator}`);
+
+    }*/ else if (Number.isNaN(parseFloat(grandTotal))) {
+        grandTotal = 0;
     }
+
+
+    //----------runningTotalDisplay----------
+    if (grandTotal === undefined && operator !== undefined) {
+        runningTotalDisplay.innerText = firstValue;
+    } else if (grandTotal === undefined) {
+        runningTotalDisplay.innerText = "0";
+    } else if (grandTotal.toString().length > 11) {
+        runningTotalDisplay.innerText = grandTotal.toExponential(11);
+    } else {
+        runningTotalDisplay.innerText = grandTotal;
+    }
+
+    //----------currentOperationDisplay----------
+    if (operator === add) {
+        currentOperationDisplay.innerText = "+";
+    } else if (operator === deduct) {
+        currentOperationDisplay.innerText = "-";
+    } else if (operator === multiply) {
+        currentOperationDisplay.innerText = "×";
+    } else if (operator === divide) {
+        currentOperationDisplay.innerText = "÷";
+    } else {
+        currentOperationDisplay.innerText = "";
+    }
+    //----------currentValueDisplay----------
+
+    //DOT doesn't work
+    if (value.length > 11) {
+        currentValueDisplay.innerText = parseFloat(value).toExponential(6);
+    } else if (value.includes(".")) {
+        currentValueDisplay.innerText = value;
+    } else if (parseFloat(value) === 0) {
+        currentValueDisplay.innerText = 0;
+    } else {
+        currentValueDisplay.innerText = parseFloat(value);
+    }
+
 }
+
+//let runningTotalDisplay = document.querySelector(".runningTotal");
+//let currentOperationDisplay = document.querySelector(".currentOperation");
+//let currentValueDisplay = document.querySelector(".currentValue");
