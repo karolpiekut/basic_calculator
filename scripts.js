@@ -67,26 +67,9 @@ function calculator(selectedButton) {
     } //delete button functionality
     else if (selected === "del" && value !== "0") {
         value = value.substring(0, value.length - 1);
-
-        console.log("---------delete----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } //percentage button functionality
     else if (selected === "%") {
         value = (value / 100).toString();
-
-        console.log("---------percentage----------");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-
     } //plus/minus button functionality
     else if (selected === "+/-") {
         if (parseFloat(value) === 0) {
@@ -96,15 +79,7 @@ function calculator(selectedButton) {
         } else if (Math.sign(parseFloat(value)) === -1) {
             value = Math.abs(value).toString();
         }
-        console.log("-----plus minus-----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
     }//if number or dot pressed, will concatenate selection with a global variable value
-
-
     else if (Number.isNaN(parseFloat(selected)) === false || selected === ".") {
         value += selected;
 
@@ -120,147 +95,50 @@ function calculator(selectedButton) {
         operator = add;
         firstValue = parseFloat(value);
         value = "0";
-
-        console.log("----first plus----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-
     } else if (selected === "+" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = add;
-
-        console.log("----second plus----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-
     } else if (selected === "-" && operator === undefined) {
         operator = deduct;
         firstValue = parseFloat(value);
         value = "0";
-
-        console.log("----first minus-----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "-" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = deduct;
-
-
-        console.log("----second minus----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "÷" && operator === undefined) {
         operator = divide;
         firstValue = parseFloat(value);
         value = "0";
-
-        console.log("-----first divide----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "÷" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = divide;
-
-        console.log("----second divide----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "×" && operator === undefined) {
         operator = multiply;
         firstValue = parseFloat(value);
         value = "0";
-
-
-        console.log("----first multiply----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "×" && operator !== undefined) {
         lastValue = parseFloat(value);
         value = "0";
         grandTotal = operate(firstValue, lastValue, operator);
         firstValue = grandTotal;
         operator = multiply;
-
-        console.log("----second multiply----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
     } else if (selected === "=" && operator === undefined) {
         grandTotal = value;
-
-        console.log("----equals no operator----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-
     } else if (selected === "=") {
         lastValue = parseFloat(value);
         grandTotal = operate(firstValue, lastValue, operator);
-        console.log("----first equals----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-
-    } /*else if (selected === "=" && grandTotal !== undefined) {
-        lastValue = parseFloat(value);
-        grandTotal = operate(grandTotal, lastValue, operator);
-
-        console.log("----second equals----");
-        console.log(`GRAND TOTAL: ${grandTotal}`);
-        console.log(`value: ${value}`);
-        console.log(`firstValue: ${firstValue}`);
-        console.log(`lastValue ${lastValue}`);
-        console.log(`operator: ${operator}`);
-
-    }*/ else if (Number.isNaN(parseFloat(grandTotal))) {
+    } else if (Number.isNaN(parseFloat(grandTotal))) {
         grandTotal = 0;
     }
-
 
     //----------runningTotalDisplay----------
     if (grandTotal === undefined && operator !== undefined) {
@@ -268,6 +146,7 @@ function calculator(selectedButton) {
     } else if (grandTotal === undefined) {
         runningTotalDisplay.innerText = "0";
     } else if (grandTotal.toString().length > 11) {
+        //Number(Math.round(grandTotal +'e11')+'e-11');
         runningTotalDisplay.innerText = grandTotal.toExponential(11);
     } else {
         runningTotalDisplay.innerText = grandTotal;
@@ -300,6 +179,3 @@ function calculator(selectedButton) {
 
 }
 
-//let runningTotalDisplay = document.querySelector(".runningTotal");
-//let currentOperationDisplay = document.querySelector(".currentOperation");
-//let currentValueDisplay = document.querySelector(".currentValue");
