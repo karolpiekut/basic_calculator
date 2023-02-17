@@ -16,14 +16,18 @@ function deduct(...par) {
     return par.reduce((acc, curr) => acc - curr);
 }
 
+function reset () {
+    value = "0";
+    firstValue = undefined;
+    operator = undefined;
+    grandTotal = undefined;
+}
+
 //operate will take three arguments, first number, function, second number and limit the result to 9 digits
 function operate(par1, par2, fun) {
     if (par2 === 0 && fun === divide) {
-        alert("you can't divide by zero!");
-        value = "0";
-        firstValue = undefined;
-        operator = undefined;
-        grandTotal = undefined;
+        alert("you can't divide by 0!")
+        reset();
     } else {
         return fun(parseFloat(par1), parseFloat(par2));
     }
@@ -54,10 +58,7 @@ function calculator(selectedButton) {
     let selected = selectedButton.target.value;
     // clear button functionality
     if (selected === "C") {
-        value = "0";
-        firstValue = undefined;
-        operator = undefined;
-        grandTotal = undefined;
+        reset();
     } // won't allow to add second comma in decimals
     else if (selected === "." && value.includes(".") === true) {
         dot.disabled = true;
